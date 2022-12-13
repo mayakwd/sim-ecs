@@ -1,5 +1,6 @@
 import {Engine, Entity, Query, System} from 'tick-knock';
 import {IBenchmark} from "../../benchmark.spec";
+import {counter} from '../../counter';
 
 class Transform {}
 class Position { x = 0 }
@@ -10,6 +11,7 @@ class SimpleIterSystem extends System {
     query = new Query(entity => entity.hasAll(Position, Velocity));
 
     update() {
+        counter.tickKnock++;
         let entity;
         for (entity of this.query.entities) {
             entity.get(Position)!.x += entity.get(Velocity)!.x;

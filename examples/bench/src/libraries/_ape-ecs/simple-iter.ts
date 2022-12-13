@@ -1,5 +1,6 @@
 import {Component, System, World} from 'ape-ecs';
 import {IBenchmark} from "../../benchmark.spec";
+import {counter} from '../../counter';
 
 class Transform extends Component {}
 class Position extends Component { static properties = { x: 0 } }
@@ -10,6 +11,8 @@ class SimpleIterSystem extends System {
     q = this.createQuery().fromAll('Position', 'Velocity').persist();
 
     update() {
+        counter.ape++;
+
         const entities = this.q.execute();
         let entity;
         for (entity of entities) {

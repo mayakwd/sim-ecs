@@ -9,6 +9,7 @@ import {
 } from '../../../../../src';
 import type {IBenchmark} from "../../benchmark.spec";
 import {CheckEndSystem, CounterResource} from "./_";
+import {counter} from '../../counter';
 
 class Transform {
 }
@@ -31,6 +32,7 @@ const SimpleIterSystem = createSystem({
         vel: Read(Velocity)
     })
 }).withRunFunction(({query}) => {
+    counter.sim++;
     let pos, vel;
     for ({pos, vel} of query.iter()) {
         pos.x += vel.x;

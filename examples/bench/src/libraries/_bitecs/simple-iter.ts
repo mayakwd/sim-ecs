@@ -8,6 +8,7 @@ import {
     Types
 } from 'bitecs';
 import { IBenchmark } from '../../benchmark.spec';
+import {counter} from '../../counter';
 
 const Transform = defineComponent({});
 const Position = defineComponent({ x: Types.ui32 });
@@ -16,6 +17,8 @@ const Velocity = defineComponent({ x: Types.ui32 });
 
 const query = defineQuery([Position, Velocity]);
 const simpleIterSystem = (world: IWorld) => {
+    counter.bitecs++;
+    
     const ents = query(world);
     let eid;
 

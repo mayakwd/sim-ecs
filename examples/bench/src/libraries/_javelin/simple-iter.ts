@@ -1,5 +1,6 @@
 import {createWorld, component, World, number, createQuery} from "@javelin/ecs"
 import { IBenchmark } from '../../benchmark.spec';
+import {counter} from '../../counter';
 
 const Transform = {}
 const Position = { x: number }
@@ -16,10 +17,12 @@ export class Benchmark implements IBenchmark {
         const query = createQuery(Position, Velocity);
 
         this.world = createWorld();
-        this.world.addSystem(() =>
-            query((_e, [pos, vel]) => {
-                pos.x += vel.x;
-            })
+        this.world.addSystem(() => {
+                counter.javelin++;
+                query((_e, [pos, vel]) => {
+                    pos.x += vel.x;
+                })
+            }
         );
 
         for (let i = 0; i < this.iterCount; i++) {
